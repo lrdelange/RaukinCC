@@ -1,0 +1,11 @@
+## Interface: 20400
+## Title: RaukinCC
+## Notes: CC Breaker announcer.
+## Author: Raukin (Warmane - Outland, Endless - Sunstrider)
+## DefaultState: Enabled
+## Dependencies: !Compatibility
+## LoadOnDemand: 0
+## SavedVariables: RaukinCC_SavedVar
+
+RaukinCC.xml
+

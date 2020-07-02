@@ -1,0 +1,396 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+<Script file="RaukinCC.lua"/>
+<Frame name="RaukinCCFrame" parent="UIParent" toplevel="true" enableMouse="true" movable="true" hidden="true">
+<Size x="400" y="400"/>
+<Anchors>
+<Anchor point="CENTER"/>
+</Anchors>
+<Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true"><EdgeSize val="16"/><TileSize val="32"/><BackgroundInsets left="5" right="5" top="5" bottom="5"/></Backdrop>
+<Frames>
+<Button name="$parent_Button" inherits="OptionsButtonTemplate" text="Close">
+<Anchors>
+<Anchor point="BOTTOMRIGHT">
+<Offset>
+<AbsDimension x="-12" y="16" />
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List();self:GetParent():Hide(); </OnClick>
+</Scripts>
+</Button>
+<CheckButton name="$parent_CheckButton_CC1" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="20" y="170"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_CC2" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="20" y="140"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_CC3" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="20" y="110"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_CC4" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="20" y="80"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_CC5" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="20" y="50"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_CC6" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="200" y="170"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_CC7" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="200" y="140"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_CC8" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="200" y="110"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_CC9" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="200" y="80"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_CC10" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="200" y="50"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_An" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="20" y="260"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_Say" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="20" y="290"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_Sm" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="20" y="320"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Silent_Mode();Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_Wis" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="20" y="230"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Silent_Mode();Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+</Frames>
+<Layers>
+<Layer level="ARTWORK">
+<FontString name="$parentFontString1" font="Fonts\FRIZQT__.TTF" text="- Raukin CC v1.2 -" justifyH="CENTER" justifyV="MIDDLE">
+<Color r="1" g="0.85" b="0" a="1"/>
+<FontHeight val="10"/>
+<Anchors>
+<Anchor point="TOP">
+<Offset>
+<AbsDimension x="0" y="-14"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontString2" font="Fonts\FRIZQT__.TTF" text="Announce the CC Break in Whisper" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="50" y="240"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontString3" font="Fonts\FRIZQT__.TTF" text="Announce the CC Break in Raid > Party > Self" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="50" y="270"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontString4" font="Fonts\FRIZQT__.TTF" text="Announce the CC Break in Say" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="50" y="300"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontString5" font="Fonts\FRIZQT__.TTF" text="Announce the CC Break only to self" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="50" y="330"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontString6" font="Fonts\FRIZQT__.TTF" text="RaukinCC will announce who breaks the selected CC:" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="12"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="25" y="360"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontStringCC1" font="Fonts\FRIZQT__.TTF" text="Fear" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="50" y="180"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontStringCC2" font="Fonts\FRIZQT__.TTF" text="Polymorph" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="50" y="150"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontStringCC3" font="Fonts\FRIZQT__.TTF" text="Shackle Undead" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="50" y="120"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontStringCC4" font="Fonts\FRIZQT__.TTF" text="Hibernate" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="50" y="90"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontStringCC5" font="Fonts\FRIZQT__.TTF" text="Freezing Trap" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="50" y="60"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontStringCC6" font="Fonts\FRIZQT__.TTF" text="Seduction" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="230" y="180"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontStringCC7" font="Fonts\FRIZQT__.TTF" text="Sap" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="230" y="150"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontStringCC8" font="Fonts\FRIZQT__.TTF" text="Repentance" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="230" y="120"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontStringCC9" font="Fonts\FRIZQT__.TTF" text="Chastise" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="230" y="90"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontStringCC10" font="Fonts\FRIZQT__.TTF" text="Blind" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="230" y="60"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+</Layer>
+</Layers>
+<Scripts>
+ <OnMouseDown>
+  if button == "LeftButton" and not self.isMoving then
+   self:StartMoving();
+   self.isMoving = true;
+  end
+ </OnMouseDown>
+ <OnMouseUp>
+  if button == "LeftButton" and self.isMoving then
+   self:StopMovingOrSizing();
+   self.isMoving = false;
+  end
+ </OnMouseUp>
+ <OnHide>
+  if ( this.isMoving ) then
+   this:StopMovingOrSizing();
+   this.isMoving = false;
+  end
+ </OnHide>
+<OnLoad>RaukinCC_OnLoad();
+</OnLoad>
+<OnEvent>RaukinCC_OnEvent(self, event, ...);
+</OnEvent>
+</Scripts>
+</Frame>
+</Ui>
