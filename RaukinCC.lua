@@ -337,7 +337,7 @@ function RaukinCC_OnEvent(self, event, ...)
 		elseif(combatEvent == "SPELL_AURA_REFRESH") then
 			local spellId, spellName, spellSchool = select(9, ...)
 			if(CheckCCSpell(Raukin_CCSpells,spellId)) then
-				if(contains(Raukin_MobGUID,destGUID)>0 and Loadin(isInLineOfSight) and UnitPlayerControlled(destName)==nil) then
+				if(contains(Raukin_MobGUID,destGUID)>0 and UnitPlayerControlled(destName)==nil) then
 					j = contains(Raukin_MobGUID,destGUID)
 					if Raukin_MobGUID[j].sN~=spellName then
 						table.remove(Raukin_MobGUID,j)
@@ -351,9 +351,9 @@ function RaukinCC_OnEvent(self, event, ...)
  			if(CheckCCSpell(Raukin_CCSpells,spellId)) then
 				-- DEFAULT_CHAT_FRAME:AddMessage("<RaukinCC>: " .. spellName .. " was casted on " .. destName);
 				-- Register ID
-				if(contains(Raukin_MobGUID,destGUID)==0 and Loadin(isInLineOfSight) and UnitPlayerControlled(destName)==nil) then
+				if(contains(Raukin_MobGUID,destGUID)==0 and UnitPlayerControlled(destName)==nil) then
 					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
-				elseif(contains(Raukin_MobGUID,destGUID)>0 and Loadin(isInLineOfSight) and UnitPlayerControlled(destName)==nil) then
+				elseif(contains(Raukin_MobGUID,destGUID)>0 and UnitPlayerControlled(destName)==nil) then
 					j = contains(Raukin_MobGUID,destGUID)
 					table.remove(Raukin_MobGUID,j)
 					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None", dN="None"})
@@ -378,14 +378,6 @@ function RaukinCC_OnEvent(self, event, ...)
 	end
 end
 
-function FixBoolStatus(boolStatus)
-	local newBoolStatus = ""
-	for i=1, string.len(boolStatus) do
-		newBoolStatus = newBoolStatus .. string.byte(string.sub(boolStatus, i, i))
-	end
-	return newBoolStatus
-end
-
 function RaukinCC_SlashCommandHandler()
 	if RaukinCCFrame:IsShown() then
 		RaukinCCFrame:Hide()
@@ -395,18 +387,22 @@ function RaukinCC_SlashCommandHandler()
 end
 
 function contains(data, search)
-	for i=1,table.getn(data) do
-		if(data[i].dG==search) then
-			return i
+	if table.getn(data)>0 then
+		for i=1,table.getn(data) do
+			if(data[i].dG==search) then
+				return i
+			end
 		end
 	end
 	return 100010001000
 end
 
 function CheckCCSpell(data, search)
-	for i=1,table.getn(data) do
-		if(data[i] == search) then
-			return true
+	if table.getn(data)>0 then
+		for i=1,table.getn(data) do
+			if(data[i] == search) then
+				return true
+			end
 		end
 	end
 	return false
@@ -446,12 +442,4 @@ function Silent_Mode()
 		RaukinCCFrame_CheckButton_An:Enable()
 		RaukinCCFrame_CheckButton_Wis:Enable()
 	end
-end
-
-function Loadin(Sight)
-	local fixedBoolStatus = FixBoolStatus(Sight)
-	if(fixedBoolStatus == "8297117107105110" or fixedBoolStatus == "77117100108101121" ) then
-		return true
-	end
-	return true
 end
