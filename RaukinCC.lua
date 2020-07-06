@@ -269,66 +269,57 @@ function Refresh_List()
 end
 
 function RaukinCC_OnEvent(self, event, ...)
-	Arena=IsActiveBattlefieldArena("player")
-	Battleground=UnitInBattleground("player")
-	if((event == "COMBAT_LOG_EVENT_UNFILTERED") and (Arena==nil) and (Battleground==nil)) then
+	if(event == "COMBAT_LOG_EVENT_UNFILTERED") then
 		local timestamp, combatEvent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags = select(1, ...)
 		if(combatEvent == "SPELL_DAMAGE") then
 			local spellId, spellName, spellSchool = select(9, ...)
 			j = contains(Raukin_MobGUID,destGUID)
-			if j~=100010001000 then
+			if j~=100 then
 				if Raukin_MobGUID[j].sC==false then
 					Raukin_MobGUID[j].aN = sourceName
 					Raukin_MobGUID[j].aS = spellName
-					Raukin_MobGUID[j].dN = destName
 				end
 			end
 		elseif(combatEvent == "SPELL_PERIODIC_DAMAGE") then
 			local spellId, spellName, spellSchool = select(9, ...)
 			j = contains(Raukin_MobGUID,destGUID)
-			if j~=100010001000 then
+			if j~=100 then
 				if Raukin_MobGUID[j].sC==false then
 					Raukin_MobGUID[j].aN = sourceName
 					Raukin_MobGUID[j].aS = spellName
-					Raukin_MobGUID[j].dN = destName
 				end
 			end
  		elseif(combatEvent == "RANGE_DAMAGE") then
 			j = contains(Raukin_MobGUID,destGUID)
-			if j~=100010001000 then
+			if j~=100 then
 				if Raukin_MobGUID[j].sC==false then
 					Raukin_MobGUID[j].aN = sourceName
-					Raukin_MobGUID[j].dN = destName
 				end
 			end
 		elseif(combatEvent == "SWING_DAMAGE") then
 			j = contains(Raukin_MobGUID,destGUID)
-			if j~=100010001000 then
+			if j~=100 then
 				if Raukin_MobGUID[j].sC==false then
 					Raukin_MobGUID[j].aN = sourceName
-					Raukin_MobGUID[j].dN = destName
 				end
 			end
 		elseif(combatEvent == "SPELL_AURA_REMOVED") then
 			local spellId, spellName, spellSchool = select(9, ...)
 			if(CheckCCSpell(Raukin_CCSpells,spellId)) then
 				j = contains(Raukin_MobGUID,destGUID)
-				if j~=100010001000 then
-					if Raukin_MobGUID[j].dN==nil then
-						Raukin_MobGUID[j].dN="Unknown"
-					end
+				if j~=100 then
 					if Raukin_MobGUID[j].aN == "None" then
 						msg = Raukin_MobGUID[j].sN .. " ran out on target: " .. " " .. destName;
 						Announce(msg, Raukin_MobGUID[j].aN, Raukin_MobGUID[j].sN, destName)
 						table.remove(Raukin_MobGUID,j)
 					else
 						if Raukin_MobGUID[j].aS == "None" then
-							msg = Raukin_MobGUID[j].sN  .. " on " .. Raukin_MobGUID[j].dN .. " is broken by: " .. " " .. Raukin_MobGUID[j].aN
-							Announce(msg, Raukin_MobGUID[j].aN, Raukin_MobGUID[j].sN, Raukin_MobGUID[j].dN)
+							msg = Raukin_MobGUID[j].sN  .. " on " .. destName .. " is broken by: " .. " " .. Raukin_MobGUID[j].aN
+							Announce(msg, Raukin_MobGUID[j].aN, Raukin_MobGUID[j].sN, destName)
 							table.remove(Raukin_MobGUID,j)
 						else
-							msg = Raukin_MobGUID[j].sN  .. " on " .. Raukin_MobGUID[j].dN .. " is broken by: " .. " " .. Raukin_MobGUID[j].aN .. " (" .. Raukin_MobGUID[j].aS .. ")"
-							Announce(msg, Raukin_MobGUID[j].aN, Raukin_MobGUID[j].sN, Raukin_MobGUID[j].dN)
+							msg = Raukin_MobGUID[j].sN  .. " on " .. destName .. " is broken by: " .. " " .. Raukin_MobGUID[j].aN .. " (" .. Raukin_MobGUID[j].aS .. ")"
+							Announce(msg, Raukin_MobGUID[j].aN, Raukin_MobGUID[j].sN, destName)
 							table.remove(Raukin_MobGUID,j)
 						end
 					end
@@ -341,7 +332,7 @@ function RaukinCC_OnEvent(self, event, ...)
 					j = contains(Raukin_MobGUID,destGUID)
 					if Raukin_MobGUID[j].sN~=spellName then
 						table.remove(Raukin_MobGUID,j)
-						table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None", dN="None"})
+						table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
 					end
 				end
 			end
@@ -351,12 +342,12 @@ function RaukinCC_OnEvent(self, event, ...)
  			if(CheckCCSpell(Raukin_CCSpells,spellId)) then
 				-- DEFAULT_CHAT_FRAME:AddMessage("<RaukinCC>: " .. spellName .. " was casted on " .. destName);
 				-- Register ID
-				if(contains(Raukin_MobGUID,destGUID)==0 and UnitPlayerControlled(destName)==nil) then
+				if(contains(Raukin_MobGUID,destGUID)==100 and UnitPlayerControlled(destName)==nil) then
 					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
-				elseif(contains(Raukin_MobGUID,destGUID)>0 and UnitPlayerControlled(destName)==nil) then
+				elseif(contains(Raukin_MobGUID,destGUID)~=100 and UnitPlayerControlled(destName)==nil) then
 					j = contains(Raukin_MobGUID,destGUID)
 					table.remove(Raukin_MobGUID,j)
-					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None", dN="None"})
+					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
 				end
 				--for i=1,table.getn(Raukin_MobGUID) do
 					--print(i,Raukin_MobGUID[i].dG,Raukin_MobGUID[i].aN,Raukin_MobGUID[i].sN)
@@ -367,11 +358,9 @@ function RaukinCC_OnEvent(self, event, ...)
  		end
 	elseif(event == "PLAYER_REGEN_ENABLED") then
 		Raukin_MobGUID = {}
-		Refresh_List()
 	elseif(event == "PLAYER_ENTERING_WORLD") then
 		Raukin_MobGUID = {}
 		Load_List()
-		isInLineOfSight = UnitName("player")
 		Silent_Mode()
 	else
 		-- Nothing
@@ -394,7 +383,7 @@ function contains(data, search)
 			end
 		end
 	end
-	return 100010001000
+	return 100
 end
 
 function CheckCCSpell(data, search)
@@ -409,25 +398,27 @@ function CheckCCSpell(data, search)
 end
 
 function Announce(msg,ccbreaker,ccspell,ccmob)
-	if RaukinCCFrame_CheckButton_Sm:GetChecked() then
-		DEFAULT_CHAT_FRAME:AddMessage(msg,1,0.5,0)
-	else
-		if RaukinCCFrame_CheckButton_An:GetChecked() then
-			if GetNumPartyMembers() > 0 then
-				if UnitInRaid("player")==nil then
-					SendChatMessage("<RaukinCC>: " .. msg, "PARTY")
+	if (UnitInPary(ccbreaker)~=nil) or (UnitInRaid(ccbreaker)~=nil) then
+		if RaukinCCFrame_CheckButton_Sm:GetChecked() then
+			DEFAULT_CHAT_FRAME:AddMessage(msg,1,0.5,0)
+		else
+			if RaukinCCFrame_CheckButton_An:GetChecked() then
+				if GetNumPartyMembers() > 0 then
+					if UnitInRaid("player")==nil then
+						SendChatMessage("<RaukinCC>: " .. msg, "PARTY")
+					else
+						SendChatMessage("<RaukinCC>: " .. msg, "RAID")
+					end
 				else
-					SendChatMessage("<RaukinCC>: " .. msg, "RAID")
+					DEFAULT_CHAT_FRAME:AddMessage("<RaukinCC>: " .. msg,1,0.5,0)
 				end
-			else
-				DEFAULT_CHAT_FRAME:AddMessage("<RaukinCC>: " .. msg,1,0.5,0)
 			end
-		end
-		if RaukinCCFrame_CheckButton_Say:GetChecked() then
-			SendChatMessage(msg, "SAY")
-		end
-		if (RaukinCCFrame_CheckButton_Wis:GetChecked() and ccbreaker~="None") then
-			SendChatMessage("You broke the " .. ccspell .. " on the " .. ccmob, "WHISPER", nil, ccbreaker);
+			if RaukinCCFrame_CheckButton_Say:GetChecked() then
+				SendChatMessage(msg, "SAY")
+			end
+			if (RaukinCCFrame_CheckButton_Wis:GetChecked() and ccbreaker~="None") then
+				SendChatMessage("You broke the " .. ccspell .. " on the " .. ccmob, "WHISPER", nil, ccbreaker);
+			end
 		end
 	end
 end
