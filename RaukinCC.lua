@@ -426,7 +426,7 @@ function Announce(msg,ccbreaker,ccspell,ccmob)
 		if RaukinCCFrame_CheckButton_Say:GetChecked() then
 			SendChatMessage(msg, "SAY")
 		end
-		if RaukinCCFrame_CheckButton_Wis:GetChecked() then
+		if (RaukinCCFrame_CheckButton_Wis:GetChecked() and ccbreaker~="None") then
 			SendChatMessage("You broke the " .. ccspell .. " on the " .. ccmob, "WHISPER", nil, ccbreaker);
 		end
 	end
