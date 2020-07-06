@@ -139,6 +139,18 @@
 <OnClick> Refresh_List(); </OnClick>
 </Scripts>
 </CheckButton>
+<CheckButton name="$parent_CheckButton_CC11" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="20" y="20"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
 <CheckButton name="$parent_CheckButton_An" inherits="OptionsCheckButtonTemplate">
 <Anchors>
 <Anchor point="BOTTOMLEFT">
@@ -190,7 +202,7 @@
 </Frames>
 <Layers>
 <Layer level="ARTWORK">
-<FontString name="$parentFontString1" font="Fonts\FRIZQT__.TTF" text="- Raukin CC v1.2 -" justifyH="CENTER" justifyV="MIDDLE">
+<FontString name="$parentFontString1" font="Fonts\FRIZQT__.TTF" text="- Raukin CC v1.5 -" justifyH="CENTER" justifyV="MIDDLE">
 <Color r="1" g="0.85" b="0" a="1"/>
 <FontHeight val="10"/>
 <Anchors>
@@ -344,7 +356,7 @@
 </Anchor>
 </Anchors>
 </FontString>
-<FontString name="$parentFontStringCC9" font="Fonts\FRIZQT__.TTF" text="Chastise" justifyH="RIGHT" justifyV="MIDDLE">
+<FontString name="$parentFontStringCC9" font="Fonts\FRIZQT__.TTF" text="Entangling Roots" justifyH="RIGHT" justifyV="MIDDLE">
 <Color r="1" g="1" b="1" a="1"/>
 <FontHeight val="14"/>
 <Anchors>
@@ -362,6 +374,17 @@
 <Anchor point="BOTTOMLEFT">
 <Offset>
 <AbsDimension x="230" y="60"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontStringCC11" font="Fonts\FRIZQT__.TTF" text="Scare Beast" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="50" y="30"></AbsDimension>
 </Offset>
 </Anchor>
 </Anchors>
