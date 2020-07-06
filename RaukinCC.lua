@@ -269,7 +269,9 @@ function Refresh_List()
 end
 
 function RaukinCC_OnEvent(self, event, ...)
-	if(event == "COMBAT_LOG_EVENT_UNFILTERED") then
+	Arena=IsActiveBattlefieldArena("player")
+	Battleground=UnitInBattleground("player")
+	if((event == "COMBAT_LOG_EVENT_UNFILTERED") and (Arena==nil) and (Battleground==nil)) then
 		local timestamp, combatEvent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags = select(1, ...)
 		if(combatEvent == "SPELL_DAMAGE") then
 			local spellId, spellName, spellSchool = select(9, ...)
