@@ -400,7 +400,7 @@ function CheckCCSpell(data, search)
 end
 
 function Announce(msg,ccbreaker,ccspell,ccmob)
-	if (UnitInParty(ccbreaker)~=nil) or (UnitInRaid(ccbreaker)~=nil) then
+	if (UnitInParty(ccbreaker)~=nil) or (UnitInRaid(ccbreaker)~=nil) or (ccbreaker=="None") then
 		if RaukinCCFrame_CheckButton_Sm:GetChecked() then
 			DEFAULT_CHAT_FRAME:AddMessage(msg,1,0.5,0)
 		else
