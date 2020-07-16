@@ -13,6 +13,7 @@ function RaukinCC_OnLoad()
 		RaukinCC_SavedVar["Say_Toggle"]=false
 		RaukinCC_SavedVar["SilentMode_Toggle"]=false
 		RaukinCC_SavedVar["Whisper_Toggle"]=false
+		RaukinCC_SavedVar["Spamfilter_Toggle"]=false
 		RaukinCC_SavedVar["Fear"]=true
 		RaukinCC_SavedVar["Polymorph"]=true
 		RaukinCC_SavedVar["Shackle Undead"]=true
@@ -29,7 +30,6 @@ end
 
 function Load_List()
 	Raukin_CCSpells = {}
-	Announce_Toggle = false
 
 	if RaukinCC_SavedVar["Fear"] then
 		table.insert(Raukin_CCSpells,5782)
@@ -124,25 +124,36 @@ function Load_List()
 		Announce_Toggle = true
 		RaukinCCFrame_CheckButton_An:SetChecked(true)
 	else
+		Announce_Toggle = false
 		RaukinCCFrame_CheckButton_An:SetChecked(false)
 	end
 	if RaukinCC_SavedVar["Say_Toggle"] then
 		Say_Toggle = true
 		RaukinCCFrame_CheckButton_Say:SetChecked(true)
 	else
+		Say_Toggle = false
 		RaukinCCFrame_CheckButton_Say:SetChecked(false)
 	end
 	if RaukinCC_SavedVar["SilentMode_Toggle"] then
 		SilentMode_Toggle = true
 		RaukinCCFrame_CheckButton_Sm:SetChecked(true)
 	else
+		SilentMode_Toggle = false
 		RaukinCCFrame_CheckButton_Sm:SetChecked(false)
 	end
 	if RaukinCC_SavedVar["Whisper_Toggle"] then
 		Whisper_Toggle = true
 		RaukinCCFrame_CheckButton_Wis:SetChecked(true)
 	else
+		Whisper_Toggle = false
 		RaukinCCFrame_CheckButton_Wis:SetChecked(false)
+	end
+	if RaukinCC_SavedVar["Spamfilter_Toggle"] then
+		Spamfilter_Toggle = true
+		RaukinCCFrame_CheckButton_Sfil:SetChecked(true)
+	else
+		Spamfilter_Toggle = false
+		RaukinCCFrame_CheckButton_Sfil:SetChecked(false)
 	end
 end
 
@@ -152,6 +163,7 @@ function Refresh_List()
 	SilentMode_Toggle = false
 	Say_Toggle = false
 	Whisper_Toggle = false
+	Spamfilter_Toggle = false
 
 	if RaukinCCFrame_CheckButton_CC1:GetChecked() then
 		table.insert(Raukin_CCSpells,5782)
@@ -266,6 +278,12 @@ function Refresh_List()
 	else
 		RaukinCC_SavedVar["Whisper_Toggle"] = false
 	end
+	if RaukinCCFrame_CheckButton_Sfil:GetChecked() then
+		Spamfilter_Toggle = true
+		RaukinCC_SavedVar["Spamfilter_Toggle"] = true
+	else
+		RaukinCC_SavedVar["Spamfilter_Toggle"] = false
+	end
 end
 
 function RaukinCC_OnEvent(self, event, ...)
@@ -280,8 +298,9 @@ function RaukinCC_OnEvent(self, event, ...)
 				if(contains(Raukin_MobGUID,destGUID)>0 and UnitPlayerControlled(destName)==nil) then
 					j = contains(Raukin_MobGUID,destGUID)
 					if Raukin_MobGUID[j].sN~=spellName then
+						now = GetTime()
 						table.remove(Raukin_MobGUID,j)
-						table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
+						table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None", Time=now})
 					end
 				end
 			end
@@ -293,11 +312,13 @@ function RaukinCC_OnEvent(self, event, ...)
 				-- Register ID
 				-- print(contains(Raukin_MobGUID,destGUID))	
 				if(contains(Raukin_MobGUID,destGUID)==100 and UnitPlayerControlled(destName)==nil) then
-					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
+					now = GetTime()
+					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None", Time=now})
 				elseif(contains(Raukin_MobGUID,destGUID)~=100 and UnitPlayerControlled(destName)==nil) then
 					j = contains(Raukin_MobGUID,destGUID)
+					now = GetTime()
 					table.remove(Raukin_MobGUID,j)
-					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
+					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None", Time=now})
 				end
 				--for i=1,table.getn(Raukin_MobGUID) do
 					--print(i,Raukin_MobGUID[i].dG,Raukin_MobGUID[i].aN,Raukin_MobGUID[i].sN)
@@ -341,18 +362,25 @@ function RaukinCC_OnEvent(self, event, ...)
 			if(CheckCCSpell(Raukin_CCSpells,spellId)) then
 				j = contains(Raukin_MobGUID,destGUID)
 				if j~=100 then
+					now = GetTime()
 					if Raukin_MobGUID[j].aN == "None" then
 						msg = Raukin_MobGUID[j].sN .. " ran out on target: " .. " " .. destName;
-						Announce(msg, Raukin_MobGUID[j].aN, Raukin_MobGUID[j].sN, destName)
+						if ((now > (2 + Raukin_MobGUID[j].Time)) or (Spamfilter_Toggle==false)) then
+							Announce(msg, Raukin_MobGUID[j].aN, Raukin_MobGUID[j].sN, destName)
+						end
 						table.remove(Raukin_MobGUID,j)
 					else
 						if Raukin_MobGUID[j].aS == "None" then
 							msg = Raukin_MobGUID[j].sN  .. " on " .. destName .. " is broken by: " .. " " .. Raukin_MobGUID[j].aN
-							Announce(msg, Raukin_MobGUID[j].aN, Raukin_MobGUID[j].sN, destName)
+							if ((now > (2 + Raukin_MobGUID[j].Time)) or (Spamfilter_Toggle==false)) then
+								Announce(msg, Raukin_MobGUID[j].aN, Raukin_MobGUID[j].sN, destName)
+							end
 							table.remove(Raukin_MobGUID,j)
 						else
 							msg = Raukin_MobGUID[j].sN  .. " on " .. destName .. " is broken by: " .. " " .. Raukin_MobGUID[j].aN .. " (" .. Raukin_MobGUID[j].aS .. ")"
-							Announce(msg, Raukin_MobGUID[j].aN, Raukin_MobGUID[j].sN, destName)
+							if ((now > (2 + Raukin_MobGUID[j].Time)) or (Spamfilter_Toggle==false)) then
+								Announce(msg, Raukin_MobGUID[j].aN, Raukin_MobGUID[j].sN, destName)
+							end
 							table.remove(Raukin_MobGUID,j)
 						end
 					end

@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 <Script file="RaukinCC.lua"/>
 <Frame name="RaukinCCFrame" parent="UIParent" toplevel="true" enableMouse="true" movable="true" hidden="true">
-<Size x="400" y="400"/>
+<Size x="400" y="450"/>
 <Anchors>
 <Anchor point="CENTER"/>
 </Anchors>
@@ -155,7 +155,7 @@
 <Anchors>
 <Anchor point="BOTTOMLEFT">
 <Offset>
-<AbsDimension x="20" y="260"></AbsDimension>
+<AbsDimension x="20" y="300"></AbsDimension>
 </Offset>
 </Anchor>
 </Anchors>
@@ -167,7 +167,7 @@
 <Anchors>
 <Anchor point="BOTTOMLEFT">
 <Offset>
-<AbsDimension x="20" y="290"></AbsDimension>
+<AbsDimension x="20" y="330"></AbsDimension>
 </Offset>
 </Anchor>
 </Anchors>
@@ -179,7 +179,7 @@
 <Anchors>
 <Anchor point="BOTTOMLEFT">
 <Offset>
-<AbsDimension x="20" y="320"></AbsDimension>
+<AbsDimension x="20" y="360"></AbsDimension>
 </Offset>
 </Anchor>
 </Anchors>
@@ -191,7 +191,19 @@
 <Anchors>
 <Anchor point="BOTTOMLEFT">
 <Offset>
-<AbsDimension x="20" y="230"></AbsDimension>
+<AbsDimension x="20" y="270"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+<Scripts>
+<OnClick> Silent_Mode();Refresh_List(); </OnClick>
+</Scripts>
+</CheckButton>
+<CheckButton name="$parent_CheckButton_Sfil" inherits="OptionsCheckButtonTemplate">
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="20" y="240"></AbsDimension>
 </Offset>
 </Anchor>
 </Anchors>
@@ -219,7 +231,7 @@
 <Anchors>
 <Anchor point="BOTTOMLEFT">
 <Offset>
-<AbsDimension x="50" y="240"></AbsDimension>
+<AbsDimension x="50" y="280"></AbsDimension>
 </Offset>
 </Anchor>
 </Anchors>
@@ -230,7 +242,7 @@
 <Anchors>
 <Anchor point="BOTTOMLEFT">
 <Offset>
-<AbsDimension x="50" y="270"></AbsDimension>
+<AbsDimension x="50" y="310"></AbsDimension>
 </Offset>
 </Anchor>
 </Anchors>
@@ -241,7 +253,7 @@
 <Anchors>
 <Anchor point="BOTTOMLEFT">
 <Offset>
-<AbsDimension x="50" y="300"></AbsDimension>
+<AbsDimension x="50" y="340"></AbsDimension>
 </Offset>
 </Anchor>
 </Anchors>
@@ -252,7 +264,18 @@
 <Anchors>
 <Anchor point="BOTTOMLEFT">
 <Offset>
-<AbsDimension x="50" y="330"></AbsDimension>
+<AbsDimension x="50" y="370"></AbsDimension>
+</Offset>
+</Anchor>
+</Anchors>
+</FontString>
+<FontString name="$parentFontString5" font="Fonts\FRIZQT__.TTF" text="Spam filter (cc min 2 sec on target)" justifyH="RIGHT" justifyV="MIDDLE">
+<Color r="1" g="1" b="1" a="1"/>
+<FontHeight val="14"/>
+<Anchors>
+<Anchor point="BOTTOMLEFT">
+<Offset>
+<AbsDimension x="50" y="250"></AbsDimension>
 </Offset>
 </Anchor>
 </Anchors>
@@ -263,7 +286,7 @@
 <Anchors>
 <Anchor point="BOTTOMLEFT">
 <Offset>
-<AbsDimension x="25" y="360"></AbsDimension>
+<AbsDimension x="25" y="400"></AbsDimension>
 </Offset>
 </Anchor>
 </Anchors>
