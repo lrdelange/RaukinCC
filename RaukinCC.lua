@@ -166,8 +166,8 @@ function Refresh_List()
 		table.insert(Raukin_CCSpells,12824)
 		table.insert(Raukin_CCSpells,12825)
 		table.insert(Raukin_CCSpells,12826)
-		table.insert(Raukin_CCSpells,12872)
-		table.insert(Raukin_CCSpells,12871)
+		table.insert(Raukin_CCSpells,28272)
+		table.insert(Raukin_CCSpells,28271)
 		RaukinCC_SavedVar["Polymorph"] = true
 	else
 		RaukinCC_SavedVar["Polymorph"] = false
@@ -273,7 +273,38 @@ function RaukinCC_OnEvent(self, event, ...)
 	Battleground=UnitInBattleground("player")
 	if((event == "COMBAT_LOG_EVENT_UNFILTERED") and (Arena==nil) and (Battleground==nil)) then
 		local timestamp, combatEvent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags = select(1, ...)
-		if(combatEvent == "SPELL_DAMAGE") then
+		
+		if(combatEvent == "SPELL_AURA_REFRESH") then
+			local spellId, spellName, spellSchool = select(9, ...)
+			if(CheckCCSpell(Raukin_CCSpells,spellId)) then
+				if(contains(Raukin_MobGUID,destGUID)>0 and UnitPlayerControlled(destName)==nil) then
+					j = contains(Raukin_MobGUID,destGUID)
+					if Raukin_MobGUID[j].sN~=spellName then
+						table.remove(Raukin_MobGUID,j)
+						table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
+					end
+				end
+			end
+
+	 	elseif(combatEvent == "SPELL_AURA_APPLIED") then
+			local spellId, spellName, spellSchool = select(9, ...)
+ 			if(CheckCCSpell(Raukin_CCSpells,spellId)) then
+				-- DEFAULT_CHAT_FRAME:AddMessage("<RaukinCC>: " .. spellName .. " was casted on " .. destName);
+				-- Register ID
+				-- print(contains(Raukin_MobGUID,destGUID))	
+				if(contains(Raukin_MobGUID,destGUID)==100 and UnitPlayerControlled(destName)==nil) then
+					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
+				elseif(contains(Raukin_MobGUID,destGUID)~=100 and UnitPlayerControlled(destName)==nil) then
+					j = contains(Raukin_MobGUID,destGUID)
+					table.remove(Raukin_MobGUID,j)
+					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
+				end
+				--for i=1,table.getn(Raukin_MobGUID) do
+					--print(i,Raukin_MobGUID[i].dG,Raukin_MobGUID[i].aN,Raukin_MobGUID[i].sN)
+				--end
+			end
+
+		elseif(combatEvent == "SPELL_DAMAGE") then
 			local spellId, spellName, spellSchool = select(9, ...)
 			j = contains(Raukin_MobGUID,destGUID)
 			if j~=100 then
@@ -327,38 +358,14 @@ function RaukinCC_OnEvent(self, event, ...)
 					end
 				end
 			end
-		elseif(combatEvent == "SPELL_AURA_REFRESH") then
-			local spellId, spellName, spellSchool = select(9, ...)
-			if(CheckCCSpell(Raukin_CCSpells,spellId)) then
-				if(contains(Raukin_MobGUID,destGUID)>0 and UnitPlayerControlled(destName)==nil) then
-					j = contains(Raukin_MobGUID,destGUID)
-					if Raukin_MobGUID[j].sN~=spellName then
-						table.remove(Raukin_MobGUID,j)
-						table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
-					end
-				end
-			end
 
-	 	elseif(combatEvent == "SPELL_AURA_APPLIED") then
-			local spellId, spellName, spellSchool = select(9, ...)
- 			if(CheckCCSpell(Raukin_CCSpells,spellId)) then
-				-- DEFAULT_CHAT_FRAME:AddMessage("<RaukinCC>: " .. spellName .. " was casted on " .. destName);
-				-- Register ID
-				if(contains(Raukin_MobGUID,destGUID)==100 and UnitPlayerControlled(destName)==nil) then
-					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
-				elseif(contains(Raukin_MobGUID,destGUID)~=100 and UnitPlayerControlled(destName)==nil) then
-					j = contains(Raukin_MobGUID,destGUID)
-					table.remove(Raukin_MobGUID,j)
-					table.insert(Raukin_MobGUID,{dG = destGUID,sN = spellName, sC=false, aN="None", aS="None"})
-				end
-				--for i=1,table.getn(Raukin_MobGUID) do
-					--print(i,Raukin_MobGUID[i].dG,Raukin_MobGUID[i].aN,Raukin_MobGUID[i].sN)
-				--end
-			end
  		else
 			--Nothing
  		end
 	elseif(event == "PLAYER_REGEN_ENABLED") then
+		--for i=1,table.getn(Raukin_CCSpells) do
+			--print(i,Raukin_CCSpells[i])
+		--end
 		Raukin_MobGUID = {}
 	elseif(event == "PLAYER_ENTERING_WORLD") then
 		Raukin_MobGUID = {}
